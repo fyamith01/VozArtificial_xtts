@@ -1,0 +1,12 @@
+# requirements.txt
+torch==2.1.2
+torchvision==0.16.2
+torchaudio==2.1.2
+TTS==0.22.0
+setuptools==68.2.2
+sentencepiece==0.1.99
+gruut==2.2.3
+transformers==4.36.2
+tokenizers==0.15.0
+soundfile
+numpy<2.0.0

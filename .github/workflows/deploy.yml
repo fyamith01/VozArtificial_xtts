@@ -1,0 +1,33 @@
+name: Validación - Verificar código en todas las ramas
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - staging
+      - release/*
+
+jobs:
+  validate:
+    name: Validar código
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      
+      - name: Verificar que el módulo principal se importa
+        run: python -c "import src.tts_engine; import src.audio_utils; print('✓ Módulos importados correctamente')"
+      
+      - name: Mostrar rama y información del push
+        run: |
+          echo "Rama: ${{ github.ref_name }}"
+          echo "Evento: ${{ github.event_name }}"
+          echo "Commit: ${{ github.sha }}"

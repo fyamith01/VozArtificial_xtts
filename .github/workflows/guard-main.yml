@@ -1,0 +1,21 @@
+name: Proteger rama main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-user:
+    name: Verificar usuario autorizado
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar que el usuario es el admin
+        if: github.actor != 'fyamith01'
+        run: |
+          echo "ERROR: Solo el administrador puede hacer push a main"
+          echo "Usuario actual: ${{ github.actor }}"
+          exit 1
+      
+      - name: Push autorizado de admin
+        run: echo "Push a main autorizado por el administrador"
